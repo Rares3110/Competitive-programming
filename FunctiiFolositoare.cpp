@@ -12,16 +12,16 @@ template <class T> void sortUnique(vector <T> &vect)
 	vect.erase(vect.begin() + poz + 1, vect.end());
 }
 
-template <class T> void sortUnique(T vect[], int offset, int &length)
+template <class T> void sortUnique(T vect[], int left, int &right)
 {
-	sort(vect + offset, vect + offset + length);
+	sort(vect + left, vect + right + 1);
 
-	int poz = offset;
-	for (int i = offset + 1; i <= offset + length - 1; i++)
+	int poz = left;
+	for (int i = left + 1; i <= right; i++)
 		if (vect[i] != vect[i - 1])
 			vect[++poz] = vect[i];
 
-	length = poz - offset + 1;
+	right = poz;
 }
 
 template <class T> T eulerNumber(T number)
