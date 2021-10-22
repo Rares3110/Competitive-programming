@@ -24,7 +24,9 @@ template <class T> void sortUnique(T vect[], int left, int &right)
 	right = poz;
 }
 
-template <class T> T eulerNumber(T number)
+//returneaza indicatorul lui Euler pentru un numar
+
+template <class T> T eulerIndicator(T number)
 {
 	vector<pair<T, int>> dv;
 
