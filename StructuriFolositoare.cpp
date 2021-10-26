@@ -172,13 +172,11 @@ public:
 	}
 	point operator + (point b)
 	{
-		point c = { this->x + b.x, this->y + b.y };
-		return c;
+		return { this->x + b.x, this->y + b.y };
 	}
 	point operator - (point b)
 	{
-		point c = { this->x - b.x, this->y - b.y };
-		return c;
+		return { this->x - b.x, this->y - b.y };
 	}
 	void operator += (point b)
 	{
@@ -192,13 +190,11 @@ public:
 	}
 	point operator * (double value)
 	{
-		point c = { this->x * value, this->y * value };
-		return c;
+		return { this->x * value, this->y * value };
 	}
 	point operator / (double value)
 	{
-		point c = { this->x / value, this->y / value };
-		return c;
+		return { this->x / value, this->y / value };
 	}
 	friend point operator * (double value, point b);
 	double operator * (point b)
@@ -224,6 +220,5 @@ public:
 };
 point operator * (double value, point b)
 {
-	point c = { value * b.x, value * b.y };
-	return c;
+	return { value * b.x, value * b.y };
 }
