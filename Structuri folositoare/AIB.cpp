@@ -1,7 +1,8 @@
 template <class T> class AIB
 {
 private:
-	T* tree, lung;
+	T* tree;
+	int lung;
 	T sum_part(int poz)
 	{
 		T rez = 0;
