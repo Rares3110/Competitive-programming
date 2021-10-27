@@ -64,6 +64,13 @@ public:
 	{
 		return (b.y - a.y) / (b.x - a.x);
 	}
+	const bool operator < (const point& b) const
+	{
+		if (abs(x - b.x) > 0.00001)
+			return x < b.x;
+		else
+			return y < b.y;
+	}
 };
 point operator * (double value, point b)
 {
@@ -124,5 +131,14 @@ public:
 		if (abs(l1.x * l2.y - l2.x * l1.y) < 0.00001)
 			return true;
 		return false;
+	}
+	const bool operator < (const Line& b) const
+	{
+		if (abs(x - b.x) > 0.00001)
+			return x < b.x;
+		else if (abs(x - b.x) > 0.00001)
+			return y < b.y;
+		else
+			return offset < b.offset;
 	}
 };
