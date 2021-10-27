@@ -2,7 +2,7 @@ class point
 {
 public:
 	double x, y;
-	
+
 	point()
 	{
 		x = 0.0; y = 0.0;
@@ -75,17 +75,23 @@ class Line
 public:
 	double x, y, offset;
 
+	Line()
+	{
+		x = 1;
+		y = 0;
+		offset = 0;
+	}
 	Line(double x, double y, double offset)
 	{
 		this->x = x;
 		this->y = y;
 		this->offset = offset;
 	}
-	pair <double, double> getPointFromX(double xValue)
+	point getPointFromX(double xValue)
 	{
 		return { xValue, -(this->x * xValue + this->offset) / this->y };
 	}
-	pair <double, double> getPointFromY(double yValue)
+	point getPointFromY(double yValue)
 	{
 		return { -(this->y * yValue + this->offset) / this->x, yValue };
 	}
@@ -101,13 +107,13 @@ public:
 			return true;
 		return false;
 	}
-	bool onLine(pair <double, double> punct)
+	bool onLine(point punct)
 	{
-		if (abs(x * punct.first + y * punct.second + offset) < 0.00001)
+		if (abs(x * punct.x + y * punct.y + offset) < 0.00001)
 			return true;
 		return false;
 	}
-	static pair <double, double> pointFromIntersection(Line l1, Line l2)
+	static point pointFromIntersection(Line l1, Line l2)
 	{
 		double x = (l1.y * l2.offset - l2.y * l1.offset) / (l1.x * l2.y - l2.x * l1.y);
 		double y = (l1.offset * l2.x - l2.offset * l1.x) / (l1.x * l2.y - l2.x * l1.y);
