@@ -66,7 +66,7 @@ public:
 template <class T> class AIB_2D
 {
 private:
-	T **tree;
+	T** tree;
 	int lung_lin, lung_col;
 	T sum_part(int lin, int col)
 	{
@@ -79,14 +79,53 @@ private:
 		return rez;
 	}
 public:
+	AIB_2D()
+	{
+		tree = NULL;
+		lung_lin = 0;
+		lung_col = 0;
+	}
 	AIB_2D(int lung_lin, int lung_col)
 	{
 		this->lung_lin = lung_lin;
 		this->lung_col = lung_col;
 
-		tree = new T*[lung_lin + 1]();
-		for(int i = 0; i <= lung_lin; i++)
+		tree = new T * [lung_lin + 1]();
+		for (int i = 0; i <= lung_lin; i++)
 			tree[i] = new T[lung_col + 1]();
+	}
+	AIB_2D(const AIB_2D& copyAib)
+	{
+		this->lung_lin = copyAib.lung_lin;
+		this->lung_col = copyAib.lung_col;
+
+		tree = new T * [lung_lin + 1]();
+		for (int i = 0; i <= lung_lin; i++)
+			tree[i] = new T[lung_col + 1]();
+
+		for (int i = 1; i <= lung_lin; i++)
+			for (int j = 1; j <= lung_col; j++)
+				tree[i][j] = copyAib.tree[i][j];
+	}
+	void operator =(const AIB_2D& copyAib)
+	{
+		if (tree != NULL)
+		{
+			for (int i = 0; i <= lung_lin; i++)
+				delete[] tree[i];
+			delete[] tree;
+		}
+		tree = NULL;
+		this->lung_lin = copyAib.lung_lin;
+		this->lung_col = copyAib.lung_col;
+
+		tree = new T * [lung_lin + 1]();
+		for (int i = 0; i <= lung_lin; i++)
+			tree[i] = new T[lung_col + 1]();
+
+		for (int i = 1; i <= lung_lin; i++)
+			for (int j = 1; j <= lung_col; j++)
+				tree[i][j] = copyAib.tree[i][j];
 	}
 	~AIB_2D()
 	{
