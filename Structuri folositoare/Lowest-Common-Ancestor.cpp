@@ -3,9 +3,9 @@ class LCA
 private:
 	int **rmq;
 	int rMax, length;
-	int compare(int a, int b)
+	const int& compare(const int& a, const int& b)
 	{
-		if (this->nivel[a] <= this->nivel[b])
+		if (nivel[a] <= nivel[b])
 			return a;
 		return b;
 	}
@@ -32,10 +32,9 @@ private:
 		return compare(rmq[r][st], rmq[r][dr - (1 << r) + 1]);
 	}
 
-	int *gfEuler, *nivel, *st, *dr, gfSize;
+	int *gfEuler, *nivel, *st, *dr, gfSize, poz;
 	void dfsNivel(vector <int> gf[], int nod, int niv = 1)
 	{
-		static int poz = 0;
 		gfEuler[++poz] = nod;
 		nivel[nod] = niv;
 		st[nod] = min(st[nod], poz);
@@ -74,6 +73,8 @@ public:
 			st[i] = 2 * gfSize;
 			dr[i] = 0;
 		}
+
+		poz = 0;
 		dfsNivel(gf, varf);
 		buildRmq(gfSize * 2 - 1);
 	}
