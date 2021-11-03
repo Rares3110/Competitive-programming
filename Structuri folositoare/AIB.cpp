@@ -16,10 +16,34 @@ private:
 		return rez;
 	}
 public:
+	AIB()
+	{
+		tree = NULL;
+		lung = 0;
+	}
 	AIB(int lungime)
 	{
 		lung = lungime;
 		tree = new T[lung + 1]();
+	}
+	AIB(const AIB& copyAib)
+	{
+		lung = copyAib.lung;
+		tree = new T[lung + 1]();
+
+		for (int i = 1; i <= lung; i++)
+			tree[i] = copyAib.tree[i];
+	}
+	void operator =(const AIB& copyAib)
+	{
+		delete[] tree;
+		tree = NULL;
+
+		lung = copyAib.lung;
+		tree = new T[lung + 1]();
+
+		for (int i = 1; i <= lung; i++)
+			tree[i] = copyAib.tree[i];
 	}
 	~AIB()
 	{
