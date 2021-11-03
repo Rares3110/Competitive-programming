@@ -1,7 +1,7 @@
 class Union
 {
 private:
-	int *tata, *marime, lung;
+	int* tata, * marime, lung;
 public:
 	Union(int lungime)
 	{
@@ -9,6 +9,40 @@ public:
 		tata = new int[lung + 1];
 		marime = new int[lung + 1];
 		reset();
+	}
+	Union(const Union& copyUnion)
+	{
+		delete[] tata;
+		delete[] marime;
+		tata = NULL;
+		marime = NULL;
+
+		lung = copyUnion.lung;
+		tata = new int[lung + 1];
+		marime = new int[lung + 1];
+
+		for (int i = 1; i <= lung; i++)
+		{
+			tata[i] = copyUnion.tata[i];
+			marime[i] = copyUnion.marime[i];
+		}
+	}
+	void operator =(const Union& copyUnion)
+	{
+		delete[] tata;
+		delete[] marime;
+		tata = NULL;
+		marime = NULL;
+
+		lung = copyUnion.lung;
+		tata = new int[lung + 1];
+		marime = new int[lung + 1];
+
+		for (int i = 1; i <= lung; i++)
+		{
+			tata[i] = copyUnion.tata[i];
+			marime[i] = copyUnion.marime[i];
+		}
 	}
 	~Union()
 	{
