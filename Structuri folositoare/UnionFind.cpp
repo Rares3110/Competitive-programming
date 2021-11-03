@@ -3,6 +3,12 @@ class Union
 private:
 	int* tata, * marime, lung;
 public:
+	Union()
+	{
+		tata = NULL;
+		marime = NULL;
+		lung = 0;
+	}
 	Union(int lungime)
 	{
 		lung = lungime;
@@ -12,11 +18,6 @@ public:
 	}
 	Union(const Union& copyUnion)
 	{
-		delete[] tata;
-		delete[] marime;
-		tata = NULL;
-		marime = NULL;
-
 		lung = copyUnion.lung;
 		tata = new int[lung + 1];
 		marime = new int[lung + 1];
