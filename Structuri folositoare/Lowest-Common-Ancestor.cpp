@@ -153,4 +153,8 @@ public:
 	{
 		return queryRmq(min(st[a], st[b]), max(dr[a], dr[b]));
 	}
+	int level(int a)
+	{
+		return nivel[a];
+	}
 };
