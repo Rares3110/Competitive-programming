@@ -57,7 +57,7 @@ public:
 		rmq = NULL;
 		rMax = length = 0;
 		gfEuler = nivel = st = dr = NULL;
-		gfSize = 0;
+		gfSize = poz = 0;
 	}
 	LCA(vector <int> gf[], int gfSize, int varf)
 	{
