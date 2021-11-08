@@ -79,6 +79,10 @@ public:
 		isNeg = a.isNeg;
 		return *this;
 	}
+	LongInt& operator =(const long long& a)
+	{
+		return *this = LongInt(a);
+	}
 	LongInt& operator =(const string& a)
 	{
 		return *this = LongInt(a);
@@ -102,6 +106,29 @@ public:
 		}
 		else
 			return *this - LongInt(-1) * a;
+	}
+	LongInt operator +(const long long& a)
+	{
+		return *this + LongInt(a);
+	}
+	LongInt operator +(const string& a)
+	{
+		return *this + LongInt(a);
+	}
+	void operator +=(const LongInt& a)
+	{
+		LongInt rez = *this + a;
+		*this = rez;
+	}
+	void operator +=(const long long& a)
+	{
+		LongInt rez = *this + a;
+		*this = rez;
+	}
+	void operator +=(const string& a)
+	{
+		LongInt rez = *this + a;
+		*this = rez;
 	}
 	LongInt operator -(const LongInt& a)
 	{
@@ -139,6 +166,29 @@ public:
 			return rez;
 		}
 	}
+	LongInt operator -(const long long& a)
+	{
+		return *this - LongInt(a);
+	}
+	LongInt operator -(const string& a)
+	{
+		return *this - LongInt(a);
+	}
+	void operator -=(const LongInt& a)
+	{
+		LongInt rez = *this - a;
+		*this = rez;
+	}
+	void operator -=(const long long& a)
+	{
+		LongInt rez = *this - a;
+		*this = rez;
+	}
+	void operator -=(const string& a)
+	{
+		LongInt rez = *this - a;
+		*this = rez;
+	}
 	LongInt operator *(const LongInt& a)
 	{
 		LongInt rez;
@@ -163,6 +213,25 @@ public:
 	LongInt operator *(const long long& a)
 	{
 		return *this * LongInt(a);
+	}
+	LongInt operator *(const string& a)
+	{
+		return *this * LongInt(a);
+	}
+	void operator *=(const LongInt& a)
+	{
+		LongInt rez = *this * a;
+		*this = rez;
+	}
+	void operator *=(const long long& a)
+	{
+		LongInt rez = *this * a;
+		*this = rez;
+	}
+	void operator *=(const string& a)
+	{
+		LongInt rez = *this * a;
+		*this = rez;
 	}
 	bool operator ==(const LongInt& a)
 	{
@@ -222,6 +291,21 @@ public:
 	bool operator <=(const LongInt& a)
 	{
 		return !(*this > a);
+	}
+	string toString()
+	{
+		string rez = "";
+		if (isNeg)
+			rez += "-";
+		rez += to_string(cifre[cifre.size() - 1]);
+
+		for (int i = cifre.size() - 2; i >= 0; i--)
+			if (cifre[i] == 0)
+				rez += string(9, '0');
+			else
+				rez += string(8 - log10(cifre[i]), '0') + to_string(cifre[i]);
+
+		return rez;
 	}
 	friend ostream& operator<<(ostream& out, const LongInt& a);
 	friend istream& operator>>(istream& in, LongInt& a);
