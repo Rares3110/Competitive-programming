@@ -79,14 +79,6 @@ public:
 		isNeg = a.isNeg;
 		return *this;
 	}
-	LongInt& operator =(const long long& a)
-	{
-		return *this = LongInt(a);
-	}
-	LongInt& operator =(const string& a)
-	{
-		return *this = LongInt(a);
-	}
 	LongInt operator +(const LongInt& a)
 	{
 		if (isNeg == a.isNeg)
@@ -107,25 +99,7 @@ public:
 		else
 			return *this - LongInt(-1) * a;
 	}
-	LongInt operator +(const long long& a)
-	{
-		return *this + LongInt(a);
-	}
-	LongInt operator +(const string& a)
-	{
-		return *this + LongInt(a);
-	}
 	void operator +=(const LongInt& a)
-	{
-		LongInt rez = *this + a;
-		*this = rez;
-	}
-	void operator +=(const long long& a)
-	{
-		LongInt rez = *this + a;
-		*this = rez;
-	}
-	void operator +=(const string& a)
 	{
 		LongInt rez = *this + a;
 		*this = rez;
@@ -166,25 +140,7 @@ public:
 			return rez;
 		}
 	}
-	LongInt operator -(const long long& a)
-	{
-		return *this - LongInt(a);
-	}
-	LongInt operator -(const string& a)
-	{
-		return *this - LongInt(a);
-	}
 	void operator -=(const LongInt& a)
-	{
-		LongInt rez = *this - a;
-		*this = rez;
-	}
-	void operator -=(const long long& a)
-	{
-		LongInt rez = *this - a;
-		*this = rez;
-	}
-	void operator -=(const string& a)
 	{
 		LongInt rez = *this - a;
 		*this = rez;
@@ -210,25 +166,7 @@ public:
 
 		return rez;
 	}
-	LongInt operator *(const long long& a)
-	{
-		return *this * LongInt(a);
-	}
-	LongInt operator *(const string& a)
-	{
-		return *this * LongInt(a);
-	}
 	void operator *=(const LongInt& a)
-	{
-		LongInt rez = *this * a;
-		*this = rez;
-	}
-	void operator *=(const long long& a)
-	{
-		LongInt rez = *this * a;
-		*this = rez;
-	}
-	void operator *=(const string& a)
 	{
 		LongInt rez = *this * a;
 		*this = rez;
@@ -310,20 +248,3 @@ public:
 	friend ostream& operator<<(ostream& out, const LongInt& a);
 	friend istream& operator>>(istream& in, LongInt& a);
 };
-ostream& operator<<(ostream& out, const LongInt& a)
-{
-	if (a.isNeg)
-		out << '-';
-	out << a.cifre[a.cifre.size() - 1];
-
-	for (int i = a.cifre.size() - 2; i >= 0; i--)
-		out << setfill('0') << setw(9) << a.cifre[i];
-	return out;
-}
-istream& operator>>(istream& in, LongInt& a)
-{
-	string sir;
-	in >> sir;
-	a = sir;
-	return in;
-}
