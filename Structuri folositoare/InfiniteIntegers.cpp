@@ -171,6 +171,64 @@ public:
 		LongInt rez = *this * a;
 		*this = rez;
 	}
+	LongInt operator /(const LongInt& a)
+	{
+		if(a.cifre.size() == 1 && a.cifre[0] == 0)
+			throw invalid_argument("received invalid value");
+		if (abs(*this) < abs(a))
+			return LongInt();
+
+		LongInt rez, p, copyThis = *this, copyA = a;
+		copyThis.isNeg = 0;
+		copyA.isNeg = 0;
+		p.cifre.assign(cifre.size(), 0);
+		
+		for (int i = cifre.size() - 1; i >= 0; i--)
+		{
+			p.cifre[i] = 1;
+
+			if (p * copyA <= copyThis)
+			{
+				long long poz = 0;
+				for (long long pas = Baza - 1; pas; pas /= 2)
+					while (poz + pas < Baza && p * (poz + pas) * copyA <= copyThis)
+						poz += pas;
+
+				if (poz)
+				{
+					rez += p * poz;
+					copyThis -= p * poz * copyA;
+				}
+			}
+
+			p.cifre.pop_back();
+		}
+
+		rez.isNeg = isNeg ^ a.isNeg;
+		return rez;
+	}
+	void operator /=(const LongInt& a)
+	{
+		LongInt rez = *this / a;
+		*this = rez;
+	}
+	LongInt operator %(const LongInt& a)
+	{
+		if(a.isNeg || (a.cifre.size() == 1 && a.cifre[0] == 0))
+			throw invalid_argument("received invalid value");
+		if (abs(*this) < abs(a))
+			return *this;
+
+		LongInt rez = *this - *this / a * a;
+		if (rez.cifre.size() == 1 && rez.cifre[0] == 0)
+			rez.isNeg = 0;
+		return rez;
+	}
+	void operator %=(const LongInt& a)
+	{
+		LongInt rez = *this % a;
+		*this = rez;
+	}
 	bool operator ==(const LongInt& a)
 	{
 		if (cifre.size() != a.cifre.size() || isNeg != a.isNeg)
@@ -247,6 +305,7 @@ public:
 	}
 	friend ostream& operator<<(ostream& out, const LongInt& a);
 	friend istream& operator>>(istream& in, LongInt& a);
+	friend LongInt abs(const LongInt& a);
 };
 ostream& operator<<(ostream& out, const LongInt& a)
 {
@@ -264,4 +323,10 @@ istream& operator>>(istream& in, LongInt& a)
 	in >> sir;
 	a = sir;
 	return in;
+}
+LongInt abs(const LongInt& a)
+{
+	LongInt rez = a;
+	rez.isNeg = 0;
+	return rez;
 }
