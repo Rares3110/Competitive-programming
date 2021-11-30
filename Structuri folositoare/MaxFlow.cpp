@@ -5,6 +5,8 @@ n = numar de noduri
 primul nod este sursa si nodul n este destinatia
 
 long rezultat = MaxFlow<long>::generare(n, gf);
+
+!IMPORTANT! este mai lenta varianta asta decat cea fara clase
 */
 template <class T> class MaxFlow
 {
