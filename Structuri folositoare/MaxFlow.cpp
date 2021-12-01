@@ -1,10 +1,10 @@
 /*exemplu apelare:
 vector <pair<int, long>> gf[] = {...}
-al doilea parametru este capacitatea muchiei
+al 2-lea parametru este capacitatea muchiei
 n = numar de noduri
 primul nod este sursa si nodul n este destinatia
 
-long rezultat = MaxFlow<long>::generare(n, gf);
+MaxFlow<long>::generate(n, gf);
 
 !IMPORTANT! este mai lenta varianta asta decat cea fara clase
 variabilele relevante sunt publice
