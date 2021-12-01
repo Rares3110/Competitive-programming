@@ -1,3 +1,14 @@
+/*exemplu apelare:
+vector <pair<int, long, long>> gf[] = {...}
+al 2-lea parametru este capacitatea muchiei si al 3-lea este costul muchiei
+n = numar de noduri
+primul nod este sursa si nodul n este destinatia
+
+MaxFlowMinCost<long>::generate(n, gf);
+
+!IMPORTANT! este mai lenta varianta asta decat cea fara clase
+variabilele relevante sunt publice
+*/
 template <class T> class MaxFlowMinCost
 {
 public:
