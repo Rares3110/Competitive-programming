@@ -7,18 +7,20 @@ primul nod este sursa si nodul n este destinatia
 long rezultat = MaxFlow<long>::generare(n, gf);
 
 !IMPORTANT! este mai lenta varianta asta decat cea fara clase
+variabilele relevante sunt publice
 */
 template <class T> class MaxFlow
 {
+public:
 	static int gfSize;
-	static vector <int> *gf, *gft;
-	static map <pair<int, int>, T> cost, flux; 
+	static vector <int> *gf;
+	static map <pair<int, int>, T> cap, flux; 
 	static T rezultat;
- 
+private:
+	static vector <int> *gft;
 	//bfs
 	static int *nivel;
 	static bool *viz, *usefull;
- 
 	//drum + dfs
 	static pair <int, int> *muchie;
 	static int *tabel;
@@ -39,7 +41,7 @@ template <class T> class MaxFlow
 			q.pop();
  
 			for (auto vec : gf[nod])
-				if (!viz[vec] && cost[{nod, vec}])
+				if (!viz[vec] && cap[{nod, vec}])
 				{
 					viz[vec] = 1;
 					nivel[vec] = nivel[nod] + 1;
@@ -65,26 +67,26 @@ template <class T> class MaxFlow
 		T minim;
  
 		if (tabel[1] == 1)
-			minim = cost[{muchie[1].first, muchie[1].second}];
+			minim = cap[{muchie[1].first, muchie[1].second}];
 		else
 			minim = flux[{muchie[1].first, muchie[1].second}];
  
 		for (int i = 2; i <= lung; i++)
 			if (tabel[i] == 1)
-				minim = min(minim, cost[{muchie[i].first, muchie[i].second}]);
+				minim = min(minim, cap[{muchie[i].first, muchie[i].second}]);
 			else
 				minim = min(minim, flux[{muchie[i].first, muchie[i].second}]);
  
 		for (int i = 1; i <= lung; i++)
 			if (tabel[i] == 1)
 			{
-				cost[{muchie[i].first, muchie[i].second}] -= minim;
+				cap[{muchie[i].first, muchie[i].second}] -= minim;
 				flux[{muchie[i].second, muchie[i].first}] += minim;
 			}
 			else
 			{
 				flux[{muchie[i].first, muchie[i].second}] -= minim;
-				cost[{muchie[i].second, muchie[i].first}] += minim;
+				cap[{muchie[i].second, muchie[i].first}] += minim;
 			}
  
 		rezultat += minim;
@@ -100,7 +102,7 @@ template <class T> class MaxFlow
 		
 		bool found = 0;
 		for (auto vec : gf[nod])
-			if (nivel[vec] > nivel[nod] && cost[{nod, vec}])
+			if (nivel[vec] > nivel[nod] && cap[{nod, vec}])
 			{
 				muchie[vf] = {nod, vec};
 				tabel[vf] = 1;
@@ -129,7 +131,7 @@ template <class T> class MaxFlow
 		delete[] usefull;
 		delete[] muchie;
 		delete[] tabel;
-		cost.clear();
+		cap.clear();
 		flux.clear();
 	}
 	static void assignAll(const int &n)
@@ -145,7 +147,7 @@ template <class T> class MaxFlow
 		gfSize = n;
 	}
 public:
-	static T generate(const int &n, const vector <pair<int, T>> graf[])
+	static void generate(const int &n, const vector <pair<int, T>> graf[])
 	{
 		deleteAll();
 		assignAll(n);
@@ -155,19 +157,17 @@ public:
 			{
 				gf[i].push_back(vec.first);
 				gft[vec.first].push_back(i);
-				cost[{i, vec.first}] = cost[{vec.first, i}] = vec.second;
+				cap[{i, vec.first}] = cap[{vec.first, i}] = vec.second;
 			}
  
 		while(bfs())
 			while(dfs());
-		
-		return rezultat;
 	}
 };
 template <class T> int MaxFlow<T>::gfSize = 0;
 template <class T> vector <int>* MaxFlow<T>::gf = NULL;
 template <class T> vector <int>* MaxFlow<T>::gft = NULL;
-template <class T> map <pair<int, int>, T> MaxFlow<T>::cost = {};
+template <class T> map <pair<int, int>, T> MaxFlow<T>::cap = {};
 template <class T> map <pair<int, int>, T> MaxFlow<T>::flux = {};
 template <class T> int* MaxFlow<T>::nivel = NULL;
 template <class T> bool* MaxFlow<T>::viz = NULL;
