@@ -167,12 +167,18 @@ public:
 	}
 	static void generate(const int& n, const vector <pair<int, T>> graf[])
 	{
+		for(int i = 1; i <= gfSize; i++)
+		{
+			gf[i].clear();
+			gft[i].clear();
+		}
+						
 		for(int i = 1; i <= n; i++)
 		{
 			fill(cap[i] + 1, cap[i] + 1 + n, 0);
 			fill(flux[i] + 1, flux[i] + 1 + n, 0);
 		}
-
+ 
 		rezultat = 0;
 		gfSize = n;
 		
@@ -183,7 +189,7 @@ public:
 				gft[vec.first].push_back(i);
 				cap[i][vec.first] = cap[vec.first][i] = vec.second;
 			}
-
+ 
 		while (bfs())
 			while (dfs());
 	}
