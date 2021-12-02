@@ -4,9 +4,10 @@ al 2-lea parametru este capacitatea muchiei si al 3-lea este costul muchiei
 n = numar de noduri
 primul nod este sursa si nodul n este destinatia
 
+MaxFlowMinCost<long>::assignMaxSize(n);
 MaxFlowMinCost<long>::generate(n, gf);
+cout << MaxFlowMinCost<long>::rezultatCost;
 
-!IMPORTANT! este mai lenta varianta asta decat cea fara clase
 variabilele relevante sunt publice
 */
 template <class T> class MaxFlowMinCost
