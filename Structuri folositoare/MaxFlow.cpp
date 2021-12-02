@@ -15,7 +15,7 @@ template <class T> class MaxFlow
 public:
 	static int gfSize;
 	static vector <int>* gf;
-	static T **cap, **flux;
+	static T** cap, ** flux;
 	static T rezultat;
 private:
 	static vector <int>* gft;
@@ -132,10 +132,10 @@ private:
 		delete[] usefull;
 		delete[] muchie;
 		delete[] tabel;
-		
-		if(cap != NULL)
+
+		if (cap != NULL)
 		{
-			for(int i = 0; i <= gfSize; i++)
+			for (int i = 0; i <= gfSize; i++)
 			{
 				delete[] cap[i];
 				delete[] flux[i];
@@ -156,10 +156,10 @@ public:
 		usefull = new bool[n + 1]();
 		muchie = new pair<int, int>[n + 1]();
 		tabel = new int[n + 1]();
-		
-		cap = new T*[n + 1]();
-		flux = new T*[n + 1]();
-		for(int i = 0; i <= n; i++)
+
+		cap = new T * [n + 1]();
+		flux = new T * [n + 1]();
+		for (int i = 0; i <= n; i++)
 		{
 			cap[i] = new T[n + 1]();
 			flux[i] = new T[n + 1]();
@@ -167,21 +167,21 @@ public:
 	}
 	static void generate(const int& n, const vector <pair<int, T>> graf[])
 	{
-		for(int i = 1; i <= gfSize; i++)
+		for (int i = 1; i <= gfSize; i++)
 		{
 			gf[i].clear();
 			gft[i].clear();
 		}
-						
-		for(int i = 1; i <= n; i++)
+
+		for (int i = 1; i <= n; i++)
 		{
 			fill(cap[i] + 1, cap[i] + 1 + n, 0);
 			fill(flux[i] + 1, flux[i] + 1 + n, 0);
 		}
- 
+
 		rezultat = 0;
 		gfSize = n;
-		
+
 		for (int i = 1; i <= n; i++)
 			for (const auto& vec : graf[i])
 			{
@@ -189,7 +189,7 @@ public:
 				gft[vec.first].push_back(i);
 				cap[i][vec.first] = cap[vec.first][i] = vec.second;
 			}
- 
+
 		while (bfs())
 			while (dfs());
 	}
